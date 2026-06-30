@@ -21,5 +21,9 @@ class DatabaseSeeder extends Seeder
             'name' => 'Test User',
             'email' => 'test@example.com',
         ]);
+
+        \App\Models\Aula::create(['nombre_sala' => 'Laboratorio 1']);
+        \App\Models\Aula::create(['nombre_sala' => 'Biblioteca']);
+        \App\Models\Aula::create(['nombre_sala' => 'Preceptoría']);
     }
 }

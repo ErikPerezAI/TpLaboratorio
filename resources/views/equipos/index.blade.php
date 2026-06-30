@@ -17,6 +17,16 @@
 
     <p><strong>Descripción:</strong> {{ $equipo->descripcion }}</p>
 
+    <p><strong>Aula:</strong> {{ $equipo->aula->nombre_sala ?? 'Sin Aula' }}</p>
+
+@if($equipo->imagen_ruta)
+
+    <img
+        src="{{ asset($equipo->imagen_ruta) }}"
+        alt="Imagen del equipo"
+        width="200">
+
+@endif
 @empty
 
     <p>No hay equipos registrados.</p>
@@ -27,8 +37,9 @@
 
 <h2>Agregar Equipo</h2>
 
-<form action="{{ route('equipos.store') }}" method="POST">
-
+<form action="{{ route('equipos.store') }}"
+      method="POST"
+      enctype="multipart/form-data">
     @csrf
 
     <label>Nombre</label>
@@ -44,6 +55,25 @@
     <label>Descripción</label>
     <br>
     <textarea name="descripcion"></textarea>
+    <br><br>
+
+    <label>Imagen</label>
+    <br>
+    <input type="file"
+           name="imagen"
+           accept=".jpg,.jpeg,.png">
+    <br><br>
+
+    <label>Aula</label>
+    <br>
+    <select name="aula_id">
+        <option value="">Seleccionar Aula</option>
+        @foreach($aulas as $aula)
+            <option value="{{ $aula->id }}">
+                {{ $aula->nombre_sala }}
+            </option>
+        @endforeach
+    </select>
     <br><br>
 
     <button type="submit">
